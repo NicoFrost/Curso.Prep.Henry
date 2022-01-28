@@ -57,9 +57,9 @@ function nuevoUsuario(nombre, email, password) {
   // Devuelve el objeto
   // Tu código:
   newUser = {
-    nombre,
-    email,
-    password
+    nombre:nombre,
+    email:email,
+    password:password
   }
   return newUser;
 }
@@ -68,10 +68,10 @@ function tieneEmail(usuario) {
   // Devuelve "true" si el usuario tiene un valor definido para la propiedad "email"
   // De lo contratio, devuelve "false"
   // Tu código:
-  if(usuario[email] === undefined){
-    return false;
-  } else {
+  if(usuario.email){
     return true;
+  } else {
+    return false;
   }
 }
 
@@ -82,7 +82,7 @@ function tienePropiedad(objeto, propiedad) {
   // "propiedad" es un string
   // De lo contrario, devuelve "false"
   // Tu código:
-  if(objeto.hasOwnProperty(propiedad)){
+  if(objeto[propiedad]){
     return true;
   } else {
     return false; 
@@ -114,7 +114,7 @@ function agregarAmigo(usuario, nuevoAmigo) {
   // "usuario" tiene una propiedad llamada "amigos" que es un array
   // Agrega "nuevoAmigo" al final de ese array
   // Devuelve el objeto "usuario"
-  // // Tu código:
+  // Tu código:
   usuario.amigos.push(nuevoAmigo);
   return usuario;
 }
@@ -126,7 +126,7 @@ function pasarUsuarioAPremium(usuarios) {
   // Devuelve el array de usuarios
   // Tu código:
   for(let i = 0;i < usuarios.length;i++){
-    usuarios[i].usuario.esPremium = true;
+    usuarios[i].esPremium = true;
   }
 
   return usuarios;
@@ -139,12 +139,17 @@ function sumarLikesDeUsuario(usuario) {
   // Suma todos los likes de todos los objetos "post"
   // Devuelve la suma
   // Tu código:
-  
+  let acumulador = 0;
+  for(let i = 0; i < usuario.posts.length;i++){
+    acumulador = acumulador + usuario.posts[i].likes
+  } 
+  return acumulador;
 }
 
 function agregarMetodoCalculoDescuento(producto) {
   // Agregar un método (función) al objeto "producto" llamado "calcularPrecioDescuento"
-  // Este método debe multiplicar el "precio" del "producto" ("producto.precio" o "producto[precio]") y "porcentajeDeDescuento" para obtener el descuento
+  // Este método debe multiplicar el "precio" del "producto" ("producto.precio" o "producto[precio]") 
+  // y "porcentajeDeDescuento" para obtener el descuento
   // El método resta el descuento del precio y devuelve el precio con descuento
   // Devuelve el objeto "producto" al final de la función
   // Ejemplo:
@@ -152,9 +157,12 @@ function agregarMetodoCalculoDescuento(producto) {
   // producto.porcentajeDeDescuento -> 0.2 (o simplemente ".2")
   // producto.calcularPrecioDescuento() -> 20 - (20 * 0.2)
   // Tu código:
-
+  producto.calcularPrecioDescuento = function () {
+      let resultado = producto.precio - (producto.precio * producto.porcentajeDeDescuento);
+      return resultado;
+    }
+  return producto;
 }
-
 // No modificar nada debajo de esta línea
 // --------------------------------
 
